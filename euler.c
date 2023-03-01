@@ -129,7 +129,6 @@ void euler13(long long nb[][50])
     affichetab(result,0);
 }
 
-
 int nb_div(long long n)
 {
     long long i, nbdiv=0;
@@ -244,13 +243,125 @@ void euler15(long long matrice[][21])
         printf("rep : %lli\n", matrice[20][20]);
 }
 
-int main()
+void init_tab(int tab[], int taille)
 {
-    long long matrice[21][21];
+    int i;
+    tab[0] = 1;
+    for(i=1;i<taille;i++)
+    {
+        tab[i] = -1;
+    }
+}
+
+void affiche_tab(int tab[], int taille)
+{
+    int i;
+    for(i=0;i<taille;i++)
+    {
+        printf("%d|", tab[i]);
+    }
+    printf("\n\n\n okk \n");
+}
+
+int euler16(int tab[], int taille)
+{
+    int i, sum=0, r=0, nb_cases=0, j=0;
+
+    /* puissance i */
+    for(i=1;i<=1000;i++)
+    {   
+        r = 0;
+        while(tab[j] != -1)
+        {
+            tab[j] = (tab[j]*2)+r;
+            r = tab[j]/10;
+            tab[j] = tab[j]%10;
+            printf("%d|", tab[j]);
+            if (j>nb_cases) nb_cases=j;
+            j++;
+        }
+        if (r>0)
+        {
+            tab[j] = r;
+            printf("%d|", tab[j]);
+            if (j>nb_cases) nb_cases=j;
+        }
+        printf(" puissance %d\n___\n", i);
+        j = 0;
+    }
+    
+    nb_cases++;
+
+    printf("\nnbcases : %d\n", nb_cases);
+
+    for(i=nb_cases-1;i>=0;i--)
+    {
+        printf("%d",tab[i]);
+        sum = sum+tab[i];
+    }
+    printf("\nsum : %d\n", sum);
+    return sum;
+}
+
+long long euler17(int lettres[])
+{
+    int dizaines=1, centaines=0, i, unites=0;
+    long long result;
+
+    /* and */
+    result += 3*793;
+
+    /* hundred */
+    result += 8*100;
     
 
+    /* dizaines */
+    for(i=2;i<10;i++)
+    {
+        result += lettres[i+18]*8;
+        /* unités */
+        for(i=1;i<10;i++)
+        {
+            result += lettres[i]*8;
+        }
+    }
 
-    euler15(matrice);
+    /* unités */
+    for(i=1;i<10;i++)
+    {
+        result += lettres[i];
+    }
+
+    /* 1-20 */
+    for(i=1;i<20;i++)
+    {
+        result+=lettres[i]*9;
+    }
+
+    result+=11;
+
+    printf("result : %d\n", result);
+    return result;
+}
+
+void euler18(int triangle[][t], int t)
+{
+    int i, j;
+    for(i=t-1;i>0;i--)
+    {   
+        for(j=1;j<=i;j++)
+        {
+            triangle[i-1][j-1] = max11(triangle[i][j-1]+triangle[i-1][j-1], triangle[i][j]+triangle[i-1][j-1]);
+            
+        }
+    }
+
+    printf("reponse : %d\n", triangle[0][0]);
+}
+
+int main()
+{      
+    
 
 
     return EXIT_SUCCESS;

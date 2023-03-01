@@ -4,13 +4,32 @@
 
 int main()
 {
-    int i, div=0;
+    int a,b,c;
+    int *p2;
+    int *p1; 
 
-    for (i=1;i<=367567200;i++)
-    {
-        if(367567200%i==0) div++;
-    }
+    a=1,b=2,c=3;
+    p1=&a,p2=&c;
+    printf("a|b|c|  p1           |*p1|   p2            |*p2\n");
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    *p1=(*p2)++;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    p1=p2;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    p2=&b;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    *p1 -= *p2;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    ++*p2;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    *p1 *= *p2;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    a = ++*p2 * *p1;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    p1=&a;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
+    *p2 = *p1 /= *p2;
+    printf(" %d|%d|%d|%p| %d|%p|%d\n",a,b,c,p1,*p1,p2,*p2);
 
-    printf("%d", div);
     return EXIT_SUCCESS;
 }
