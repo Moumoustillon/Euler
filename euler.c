@@ -246,8 +246,14 @@ void euler15(long long matrice[][21])
 void init_tab(int tab[], int taille)
 {
     int i;
-    tab[0] = 1;
-    for(i=1;i<taille;i++)
+    tab[0] = 0;
+    tab[1] = 0;
+    tab[2] = 8;
+    tab[3] = 8;
+    tab[4] = 2;
+    tab[5] = 6;
+    tab[6] = 3;
+    for(i=7;i<taille;i++)
     {
         tab[i] = -1;
     }
@@ -344,7 +350,7 @@ long long euler17(int lettres[])
     return result;
 }
 
-void euler18(int triangle[][t], int t)
+void euler18(int triangle[][2], int t)
 {
     int i, j;
     for(i=t-1;i>0;i--)
@@ -359,10 +365,78 @@ void euler18(int triangle[][t], int t)
     printf("reponse : %d\n", triangle[0][0]);
 }
 
+void euler19()
+{
+    int annee=365, semaine=1;
+    int mois[]={31,28,31,30,31,30,31,31,30,31,30,31};
+    
+}
+
+int euler20(int tab[])
+{
+    int i, fac, sum=0, r=0, nb_cases=0, j=0;
+
+    for(i=11;i<100;i++)
+    {
+        fac=i;
+        r=0;
+        while(tab[j] != -1)
+        {
+            tab[j] = (tab[j]*fac%10)+r;
+            r = tab[j]/10;
+            tab[j] = tab[j]%10;
+            printf("%d|", tab[j]);
+            if (j>nb_cases) nb_cases=j;
+            j++;
+        }
+
+        if (r>0)
+        {
+            tab[j] = r;
+            printf("%d|", tab[j]);
+            if (j>nb_cases) nb_cases=j;
+        }
+        printf(" puissance %d\n___\n", i);
+        j = 0;
+
+        fac = fac/10;
+        while(tab[j+1] != -1)
+        {
+            tab[j+1] = (tab[j]*fac)+r;
+            r = tab[j+1]/10;
+            tab[j+1] = tab[j+1]%10;
+            printf("%d|", tab[j+1]);
+            if (j+1>nb_cases) nb_cases=j;
+            j++;
+        }
+        if (r>0)
+        {
+            tab[j+1] = r;
+            printf("%d|", tab[j+1]);
+            if (j+1>nb_cases) nb_cases=j;
+        }
+        printf(" puissance %d\n___\n", i);
+        j = 0;
+    }
+    nb_cases++;
+
+    printf("\nnbcases : %d\n", nb_cases);
+
+    for(i=nb_cases-1;i>=0;i--)
+    {
+        printf("%d",tab[i]);
+        sum = sum+tab[i];
+    }
+    printf("\nsum : %d\n", sum);
+
+    return sum;
+}
+
 int main()
 {      
-    
-
+    int tab[1000];
+    init_tab(tab, 1000);
+    printf("rep : %d\n", euler20(tab));
 
     return EXIT_SUCCESS;
 }
