@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<math.h>
 
 // maximum of two integers
 int max(int a, int b)
@@ -53,3 +54,30 @@ int factorial(int n)
     return res;
 }
 
+// display array
+void display_array(int a[], int size)
+{
+    int i;
+    for(i=0;i<size;i++)
+    {
+        printf("%d|", a[i]);
+    }
+    printf("\n");
+}
+
+// display matrix
+void display_matrix(int matrix[][], int d1, int d2)
+{
+    int i, j;
+    printf("{");
+    for(i=0;i<d1;i++)
+    {
+        printf("{");
+        for(j=0;j<d2-1;j++)
+        {
+            printf("%d,", matrix[i][j]);
+        }
+        printf("%d},\n", matrix[i][j+1]);
+    }
+    printf("}");
+}
