@@ -92,11 +92,133 @@ void euler22(char names[][50])
     printf("answer : %d\n", t_score);
 }
 
+// non-abundant sum
+int is_abundant(int n)
+{
+    int i, sum = 0;
+    for(i=1;i<=n/2;i++)
+    {
+        if(n%i==0)
+        {
+            sum = sum+i;
+        }
+    }
+    if(sum>n)
+    {
+        return 1;
+    }
+    return 0;
+}
+void euler23()
+{
+    int n, result=0, i, check=0;
 
+    for(n=1;n<=28123;n++)
+    {
+        check=0;
+        for(i=1;i<n;i++)
+        {
+            if (is_abundant(i)==1)
+            {
+                if(is_abundant(n-i)==1)
+                {
+                    check=1;
+                    printf("%d+%d=%d -> abundant sum\n", i, n-i, n);
+                    break;
+                }
+            }
+        }
+        if (check==0)
+        { 
+            result = result + n;
+            printf("result=%d, n=%d\n", result, n);
+        }
+    }
+    printf("result : %d\n", result);
+}
+
+// Lexicographic permutations
+    // 2783915460
+
+// 1000-digit Fibonacci number
+void display_array(int a[], int size)
+{
+    int i;
+    for(i=size-1;i>=0;i--)
+    {
+        if(a[i]>=0) printf("%d", a[i]);
+    }
+}
+void init_tab(int tab[], int size)
+{
+    int i;
+    for(i=0;i<size;i++)
+    {
+        tab[i] = -1;
+    }
+}
+void euler25()
+{
+    int fibo[1000], fibo1[1000], fibo2[1000];
+    int i=0, index = 2, r = 0, stop=0,size=0, j;
+    int t, t1, t2;
+
+    init_tab(fibo,1000);
+    init_tab(fibo1,1000);
+    init_tab(fibo2,1000);
+
+    fibo[0] = 1;
+    fibo1[0] = 1;
+    fibo2[0] = 1;
+
+    while(stop==0)
+    {
+        i = 0;
+        index++;
+        r = 0;
+        while(fibo[i] != -1)
+        {
+            if(fibo2[i] != -1)
+            {
+                fibo[i] = fibo1[i]+fibo2[i]+r;
+                r = fibo[i]/10;
+                fibo[i] = fibo[i]%10;
+                
+                if (i>size) size = i;
+                i++;
+            }
+            else 
+            {
+                fibo[i] = fibo1[i]+r;
+                r = fibo[i]/10;
+                fibo[i] = fibo[i]%10;
+                
+                if (i>size) size = i;
+                i++;
+            }
+        }
+        
+        if (r>=1)
+        {
+            fibo[i] = r;
+            if (i>size) size = i;
+        }
+
+        for(j=0;j<1000;j++)
+        {
+            fibo2[j] = fibo1[j];
+            fibo1[j] = fibo[j];
+        }
+        if (size>=999) stop = 1;
+        display_array(fibo,size+1);
+        printf(" | index=%d, size=%d\n", index, size+1);
+    }
+
+}
 
 int main()
 {
-    char names[][50] = {{"AARON\0"},\
+    /* char names[][50] = {{"AARON\0"},\
                         {"ABBEY\0"},\
                         {"ABBIE\0"},\
                         {"ABBY\0"},\
@@ -5258,10 +5380,9 @@ int main()
                         {"ZORAIDA\0"},\
                         {"ZULA\0"},\
                         {"ZULEMA\0"},\
-                        {"ZULMA\0"}};
+                        {"ZULMA\0"}}; */
 
-
-    display_matrix(names, 5163, 50);
-    euler22(names);
+    // int lex[]={0,1,2,3,4,5,6,7,8,9};
+    euler25();
     return EXIT_SUCCESS;
 }

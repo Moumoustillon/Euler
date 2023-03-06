@@ -66,7 +66,7 @@ void display_array(int a[], int size)
 }
 
 // display matrix
-void display_matrix(int matrix[][], int d1, int d2)
+void display_matrix(int matrix[][10], int d1, int d2)
 {
     int i, j;
     printf("{");
@@ -80,4 +80,9 @@ void display_matrix(int matrix[][], int d1, int d2)
         printf("%d},\n", matrix[i][j+1]);
     }
     printf("}");
+}
+
+int main()
+{
+    return EXIT_SUCCESS;
 }
