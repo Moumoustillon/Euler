@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<math.h>
 
+// Multiples of 3 or 5
 int euler1()
 {
     int i, s=0;
@@ -16,6 +17,7 @@ int euler1()
     return s;
 }
 
+// Even Fibonacci numbers
 int euler2()
 {
     int u1=1, u2=2, u, s=2;
@@ -32,6 +34,7 @@ int euler2()
     return s;
 }
 
+// Largest Prime Factor
 long long primeeuler3(long long nb)
 {
     long long i;
@@ -59,6 +62,7 @@ long long euler3()
     return 2;
 }
 
+// Largest Palindrome product
 int palindromic(int n)
 {
     int i, r = 0, copy;
@@ -107,6 +111,7 @@ int euler4()
     return res;
 }
 
+// Smallest multiple
 int euler5()
 {
     int i, j, v=1, t=1;
@@ -127,6 +132,9 @@ int euler5()
     return -1;
 }
 
+// Sum square difference
+
+// 10001st Prime
 int prime7(long long int n)
 {
     long long int i;
@@ -155,6 +163,7 @@ long long euler7()
     return resultat;
 }
 
+// Largest product in a series
 long long max8(long long a, long long b)
 {
     if (a>b) return a;
@@ -226,6 +235,7 @@ long long euler8(char serie[], int facteurs[], int facmax[])
     return res;
 }
 
+// Special pythagorean triplet
 int somme9(int triplet[])
 {
     return triplet[0]+triplet[1]+triplet[2];
@@ -273,6 +283,7 @@ int euler9()
 
 }
 
+// Summation of primes
 int prime10(long long n)
 {
     long long i;

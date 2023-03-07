@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<math.h>
 
+// Largest product in a grid
 void convert_grid(int grid[][20],char chaine[])
 {
     int i, j, ch=-1;
@@ -79,6 +80,37 @@ long long euler11(int grid[][20], int tab[])
     return product;
 }
 
+// Highly divisible triangular number
+int nb_div(long long n)
+{
+    long long i, nbdiv=0;
+
+    for (i=1;i<sqrt(n)+1;i++)
+    {
+        if(n%i==0) nbdiv = nbdiv+1;
+    }
+
+    return nbdiv*2;
+}
+
+long long euler12()
+{
+    long long n, tn, tnp=0, div=0;
+
+    /* Nb triangulaires */
+    for(n=1;div<500;n++)
+    {
+        tn = tnp+n;
+        tnp = tn;
+
+        /* Test nb diviseurs */
+        div = nb_div(tn);
+    }
+    printf("nb : %d, div : %d\n", tn, div);
+    return tn;
+}
+
+// Large Sum
 void convert_str_mat13(char str[], long long matrice[][50])
 {
     int i, j, c=0;
@@ -129,35 +161,7 @@ void euler13(long long nb[][50])
     affichetab(result,0);
 }
 
-int nb_div(long long n)
-{
-    long long i, nbdiv=0;
-
-    for (i=1;i<sqrt(n)+1;i++)
-    {
-        if(n%i==0) nbdiv = nbdiv+1;
-    }
-
-    return nbdiv*2;
-}
-
-long long euler12()
-{
-    long long n, tn, tnp=0, div=0;
-
-    /* Nb triangulaires */
-    for(n=1;div<500;n++)
-    {
-        tn = tnp+n;
-        tnp = tn;
-
-        /* Test nb diviseurs */
-        div = nb_div(tn);
-    }
-    printf("nb : %d, div : %d\n", tn, div);
-    return tn;
-}
-
+// Longest Collatz Sequence
 long long euler14()
 {
     long long i, j, nbt, nbtmax=0, startingmax=0;
@@ -196,6 +200,7 @@ void syracuse(long long j)
     printf("\n");
 }
 
+// Lattice paths
 long long factorielle15()
 {
     long long i, result=1, n=20;
@@ -243,6 +248,7 @@ void euler15(long long matrice[][21])
         printf("rep : %lli\n", matrice[20][20]);
 }
 
+// Power digit sum
 void init_tab(int tab[], int taille)
 {
     int i;
@@ -309,6 +315,7 @@ int euler16(int tab[], int taille)
     return sum;
 }
 
+// Number letter counts
 long long euler17(int lettres[])
 {
     int dizaines=1, centaines=0, i, unites=0;
@@ -350,6 +357,7 @@ long long euler17(int lettres[])
     return result;
 }
 
+// Maximum path sum I
 void euler18(int triangle[][2], int t)
 {
     int i, j;
@@ -365,6 +373,7 @@ void euler18(int triangle[][2], int t)
     printf("reponse : %d\n", triangle[0][0]);
 }
 
+// Counting sundays
 void euler19()
 {
     int year=1901, nbday=365, count_sun=0, day, m, d_week=2;
@@ -394,6 +403,7 @@ void euler19()
     printf("rep : %d\n", count_sun);
 }
 
+// factorial digit sum
 int euler20(int tab[])
 {
     int i, fac, sum=0, r=0, nb_cases=0, j=0;

@@ -246,7 +246,32 @@ void euler26(int primes[])
     printf("d = %d\n", result);
 }
 
+// Quadratic Primes
+int prime(int n)
+{
+    int i;
 
+    for (i=3;i<sqrt(n);i++)
+    {
+        if (n%i == 0) printf("%d is not prime\n", n); return 0;
+    }
+    printf("%d is prime\n", n);
+    return 1;
+}
+
+void euler27()
+{
+    int a, b, n, p_sequence = 0, max_p_sequence = 0, sequence = 0, res;
+
+    for(a=-999;a<1000;a++)
+    {
+        for(b=-1000;b<=1000;b++)
+        {
+            for(n=0;n<=abs(a);n++)
+            if (s)
+        }
+    }
+}
 
 int main()
 {
@@ -5434,6 +5459,8 @@ int main()
                 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,\
                 877, 881, 883, 887, 907, 911, 919, 929, 937, 941,\
                 947, 953, 967, 971, 977, 983, 991, 997}; */
-    euler26(primes);
+    
+
+    
     return EXIT_SUCCESS;
 }
