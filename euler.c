@@ -251,26 +251,47 @@ int prime(int n)
 {
     int i;
 
+    if(n<=1) return 0;
+    if(n==2) return 1;
+
     for (i=3;i<sqrt(n);i++)
     {
-        if (n%i == 0) printf("%d is not prime\n", n); return 0;
+        if (n%i == 0)return 0;
     }
-    printf("%d is prime\n", n);
     return 1;
 }
 
 void euler27()
 {
-    int a, b, n, p_sequence = 0, max_p_sequence = 0, sequence = 0, res;
+    int a, b, n, max_p_sequence = 0, sequence = 0, res, max_n=-1;
+    int results[3];
 
     for(a=-999;a<1000;a++)
     {
         for(b=-1000;b<=1000;b++)
         {
-            for(n=0;n<=abs(a);n++)
-            if (s)
+            for(n=0;n<=4000000;n++)
+            {
+                res = (n*n)+(n*a)+b;
+                if (prime(res)==1)
+                {
+                    sequence = sequence+1;
+                }
+                else break;
+            }
+            max_p_sequence = max(max_p_sequence, sequence);
+            printf("max = %d\n", max_p_sequence);
+            if (max_p_sequence == sequence)
+            {
+                results[0]=n;
+                results[1]=a;
+                results[2]=b;
+            }
+            sequence = 0;
         }
     }
+    printf("longest sequence : n=%d, a=%d, b=%d\n", results[0], results[1], results[2]);
+    printf("a*b = %d\n", results[1]*results[2]);
 }
 
 int main()
@@ -5460,7 +5481,7 @@ int main()
                 877, 881, 883, 887, 907, 911, 919, 929, 937, 941,\
                 947, 953, 967, 971, 977, 983, 991, 997}; */
     
-
+    euler27();
     
     return EXIT_SUCCESS;
 }
