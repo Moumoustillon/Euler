@@ -2,32 +2,22 @@
 #include<stdlib.h>
 #include<math.h>
 
-void is_abundant(int n)
+int test()
 {
-    int i, sum = 0;
-    printf("sum : ");
-    for(i=1;i<=n/2;i++)
-    {
-        if(n%i==0)
-        {
-            sum = sum+i;
-            printf("%d + ", i);
-        }
-    }
-    printf("= %d\n", sum);
-    if(sum>n)
-    {
-        printf("%d is abundant\n", n);
-        
-    }
-    else printf("%d is not abundant\n", n);
-    
-    
+    int a=1, b=26, digits = 0, i, r ;
+
+    do{
+        printf("%d/%d=%d\n", a, b, a*10/b);
+        a = a*10%b;
+        digits++;
+    } while(digits<15);
+    return digits;
 }
+
 
 int main()
 {
-    is_abundant(3527);
-    is_abundant(590);
+    printf("%d\n",test());
+    printf("%d\n", 10%7);
     return EXIT_SUCCESS;
 }

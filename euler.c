@@ -216,6 +216,34 @@ void euler25()
 
 }
 
+// Reciprocal cycles
+int max(int a, int b)
+{
+    if (a>b) return a;
+    return b;
+}
+int generate_digits(int b)
+{
+    int a=1, digits = 0;
+    printf("%d/%d = ", a, b);
+    do{
+        printf("%d", a*10/b);
+        a = a*10%b;
+        digits++;
+    } while(a>1);
+    return digits;
+}
+void euler26()
+{
+    int i, digits, maxi=0;
+    for(i=3;i<1000;i++)
+    {
+        digits = generate_digits(i);
+        maxi = max(maxi, digits);
+    }
+    printf("max digits = %d\n", maxi);
+}
+
 int main()
 {
     /* char names[][50] = {{"AARON\0"},\
@@ -5383,6 +5411,6 @@ int main()
                         {"ZULMA\0"}}; */
 
     // int lex[]={0,1,2,3,4,5,6,7,8,9};
-    euler25();
+    euler26();
     return EXIT_SUCCESS;
 }
