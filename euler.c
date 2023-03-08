@@ -294,6 +294,75 @@ void euler27()
     printf("a*b = %d\n", results[1]*results[2]);
 }
 
+// Number spiral diagonals
+void euler28()
+{
+    int i, j, n = 1, res = 1;
+    for(i=2;i<=1001;i = i+2)
+    {
+        for(j=1;j<=4;j++)
+        {
+            n = n+i;
+            res = res+n;
+        }
+    }
+    printf("result : %d\n", res);
+}
+
+// Distinct powers
+void init_array(int array[], int size)
+{
+    int i;
+    for(i=0;i<size;i++)
+    {
+        array[i] = -1;
+    }
+}
+
+void power(int pow[], int a, int b)
+
+int compare(int pow[][205], int indice)
+{
+    int i, unique = 0, j;
+
+    for(i=0;i<indice;i++)
+    {
+        for(j=0;j<205;j++)
+        {
+            if (pow[indice][j]!=pow[i][j])
+            {
+                unique = unique+1;
+                break;
+            }
+        }
+    }
+    if (unique == indice) return 1;
+    return 0;
+}
+
+void euler29(int pow[][205])
+{
+    int size = 205, i, a ,b;
+
+    for(i=0;i<98;i++)
+    {
+        init_array(pow[i], size);
+    }
+    i = 0;
+    for(a=2;a<=100;a++)
+    {
+        for(b=2;b<=100;b++)
+        {
+            power(pow[i], size);
+            
+            i = i+compare(pow[][], i);
+        }
+    }
+
+}
+
+
+
 int main()
 {
     /* char names[][50] = {{"AARON\0"},\
@@ -5481,7 +5550,11 @@ int main()
                 877, 881, 883, 887, 907, 911, 919, 929, 937, 941,\
                 947, 953, 967, 971, 977, 983, 991, 997}; */
     
-    euler27();
+    // Distinct powers
+    int powers[9604][200];
+
+
+    euler28();
     
     return EXIT_SUCCESS;
 }
