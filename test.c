@@ -1,20 +1,14 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
-
-int factorielle(int a)
-{   
-    int i, res=1;
-    for(i=1;i<=0;i++)
-    {
-        res = 
-    }
-}
+#include "tools.h"
 
 
 int main()
 {
-    printf("%d\n",test(1,53));
-    
+    int *tab;
+
+    tab = (int*)calloc(10,sizeof(int));
+    //display_array_pos(tab, 10);
+
+    printf("coucou\n");
+    free(tab);
     return EXIT_SUCCESS;
 }
