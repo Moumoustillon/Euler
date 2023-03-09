@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<math.h>
 
+
 // Amicable Numbers (21)
 void euler21()
 {
@@ -146,7 +147,7 @@ void display_array(int a[], int size)
     int i;
     for(i=size-1;i>=0;i--)
     {
-        if(a[i]>=0) printf("%d", a[i]);
+        if(a[i]>=0) printf("%d|", a[i]);
     }
 }
 void init_tab(int tab[], int size)
@@ -310,55 +311,9 @@ void euler28()
 }
 
 // Distinct powers
-void init_array(int array[], int size)
+void euler29()
 {
-    int i;
-    for(i=0;i<size;i++)
-    {
-        array[i] = -1;
-    }
-}
-
-void power(int pow[], int a, int b)
-
-int compare(int pow[][205], int indice)
-{
-    int i, unique = 0, j;
-
-    for(i=0;i<indice;i++)
-    {
-        for(j=0;j<205;j++)
-        {
-            if (pow[indice][j]!=pow[i][j])
-            {
-                unique = unique+1;
-                break;
-            }
-        }
-    }
-    if (unique == indice) return 1;
-    return 0;
-}
-
-void euler29(int pow[][205])
-{
-    int size = 205, i, a ,b;
-
-    for(i=0;i<98;i++)
-    {
-        init_array(pow[i], size);
-    }
-    i = 0;
-    for(a=2;a<=100;a++)
-    {
-        for(b=2;b<=100;b++)
-        {
-            power(pow[i], size);
-            
-            i = i+compare(pow[][], i);
-        }
-    }
-
+    
 }
 
 
@@ -392,7 +347,7 @@ int main()
                         {"ADELL\0"},\
                         {"ADELLA\0"},\
                         {"ADELLE\0"},\
-                        {"ADENA\0"},\
+                        {"AmultA\0"},\
                         {"ADINA\0"},\
                         {"ADOLFO\0"},\
                         {"ADOLPH\0"},\
@@ -443,7 +398,7 @@ int main()
                         {"ALBERTO\0"},\
                         {"ALBINA\0"},\
                         {"ALDA\0"},\
-                        {"ALDEN\0"},\
+                        {"ALmult\0"},\
                         {"ALDO\0"},\
                         {"ALEASE\0"},\
                         {"ALEC\0"},\
@@ -659,7 +614,7 @@ int main()
                         {"ARDELL\0"},\
                         {"ARDELLA\0"},\
                         {"ARDELLE\0"},\
-                        {"ARDEN\0"},\
+                        {"ARmult\0"},\
                         {"ARDIS\0"},\
                         {"ARDITH\0"},\
                         {"ARETHA\0"},\
@@ -895,7 +850,7 @@ int main()
                         {"BRANDA\0"},\
                         {"BRANDE\0"},\
                         {"BRANDEE\0"},\
-                        {"BRANDEN\0"},\
+                        {"BRANmult\0"},\
                         {"BRANDI\0"},\
                         {"BRANDIE\0"},\
                         {"BRANDON\0"},\
@@ -1549,22 +1504,22 @@ int main()
                         {"DEMETRIA\0"},\
                         {"DEMETRICE\0"},\
                         {"DEMETRIUS\0"},\
-                        {"DENA\0"},\
-                        {"DENAE\0"},\
-                        {"DENEEN\0"},\
-                        {"DENESE\0"},\
-                        {"DENICE\0"},\
-                        {"DENIS\0"},\
-                        {"DENISE\0"},\
-                        {"DENISHA\0"},\
-                        {"DENISSE\0"},\
-                        {"DENITA\0"},\
-                        {"DENNA\0"},\
-                        {"DENNIS\0"},\
-                        {"DENNISE\0"},\
-                        {"DENNY\0"},\
-                        {"DENVER\0"},\
-                        {"DENYSE\0"},\
+                        {"multA\0"},\
+                        {"multAE\0"},\
+                        {"multEEN\0"},\
+                        {"multESE\0"},\
+                        {"multICE\0"},\
+                        {"multIS\0"},\
+                        {"multISE\0"},\
+                        {"multISHA\0"},\
+                        {"multISSE\0"},\
+                        {"multITA\0"},\
+                        {"multNA\0"},\
+                        {"multNIS\0"},\
+                        {"multNISE\0"},\
+                        {"multNY\0"},\
+                        {"multVER\0"},\
+                        {"multYSE\0"},\
                         {"DEON\0"},\
                         {"DEONNA\0"},\
                         {"DEREK\0"},\
@@ -1724,7 +1679,7 @@ int main()
                         {"EDDIE\0"},\
                         {"EDDY\0"},\
                         {"EDELMIRA\0"},\
-                        {"EDEN\0"},\
+                        {"Emult\0"},\
                         {"EDGAR\0"},\
                         {"EDGARDO\0"},\
                         {"EDIE\0"},\
@@ -1760,7 +1715,7 @@ int main()
                         {"ELBA\0"},\
                         {"ELBERT\0"},\
                         {"ELDA\0"},\
-                        {"ELDEN\0"},\
+                        {"ELmult\0"},\
                         {"ELDON\0"},\
                         {"ELDORA\0"},\
                         {"ELDRIDGE\0"},\
@@ -2212,7 +2167,7 @@ int main()
                         {"GLYNDA\0"},\
                         {"GLYNIS\0"},\
                         {"GOLDA\0"},\
-                        {"GOLDEN\0"},\
+                        {"GOLmult\0"},\
                         {"GOLDIE\0"},\
                         {"GONZALO\0"},\
                         {"GORDON\0"},\
@@ -2287,7 +2242,7 @@ int main()
                         {"HASSIE\0"},\
                         {"HATTIE\0"},\
                         {"HAYDEE\0"},\
-                        {"HAYDEN\0"},\
+                        {"HAYmult\0"},\
                         {"HAYLEY\0"},\
                         {"HAYWOOD\0"},\
                         {"HAZEL\0"},\
@@ -3993,7 +3948,7 @@ int main()
                         {"MYUNG\0"},\
                         {"NA\0"},\
                         {"NADA\0"},\
-                        {"NADENE\0"},\
+                        {"NAmultE\0"},\
                         {"NADIA\0"},\
                         {"NADINE\0"},\
                         {"NAIDA\0"},\
@@ -4297,8 +4252,8 @@ int main()
                         {"PRINCESS\0"},\
                         {"PRISCILA\0"},\
                         {"PRISCILLA\0"},\
-                        {"PROVIDENCIA\0"},\
-                        {"PRUDENCE\0"},\
+                        {"PROVImultCIA\0"},\
+                        {"PRUmultCE\0"},\
                         {"PURA\0"},\
                         {"QIANA\0"},\
                         {"QUEEN\0"},\
@@ -5528,9 +5483,7 @@ int main()
                         {"ZULA\0"},\
                         {"ZULEMA\0"},\
                         {"ZULMA\0"}}; */
-
     // int lex[]={0,1,2,3,4,5,6,7,8,9};
-
     // A001913
     /*int primes[] = {7, 11, 13, 17, 19, 23, 29,\
                 31, 37, 41, 43, 47, 53, 59, 61, 67, 71,\
@@ -5551,10 +5504,10 @@ int main()
                 947, 953, 967, 971, 977, 983, 991, 997}; */
     
     // Distinct powers
-    int powers[9604][200];
-
+    int powers[9801][205];
+    int tab[200];
 
     euler28();
-    
-    return EXIT_SUCCESS;
+
+    return 0;
 }

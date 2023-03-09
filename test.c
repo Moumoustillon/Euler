@@ -2,16 +2,13 @@
 #include<stdlib.h>
 #include<math.h>
 
-int test(int a, int b)
+int factorielle(int a)
 {   
-    int digits = 0, r=a;
-    do
+    int i, res=1;
+    for(i=1;i<=0;i++)
     {
-        printf("%d/%d=%d\n", a, b, a*10/b);
-        a = a * 10 % b;
-        digits++;
-    } while(a!=1);
-    return digits;
+        res = 
+    }
 }
 
 
