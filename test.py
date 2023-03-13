@@ -1,1 +1,15 @@
-print(sum(2*c2+5*c5+10*c10 == 100 for c2 in range(51) for c5 in range(21) for c10 in range(11)))
+def coinCounts(target,value,*rest):
+    if not rest: return 0 if target % value else 1    # Only one coin value
+    return sum( coinCounts(target-used,*rest)         # Total of ways using
+                for used in range(0,target+1,value) ) # varying numbers of the first coin value
+
+
+answer = coinCounts(200,*[1,2,5,10,20,50,100,200])
+print(answer)
+
+def function(*arg):
+    print (type(arg))
+    for i in arg:
+        print (i)
+
+print(function(5))

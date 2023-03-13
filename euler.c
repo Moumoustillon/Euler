@@ -1,75 +1,87 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include<time.h>
+
 
 void display_array(int a[], int size)
 {
     int i;
     for(i=0;i<size;i++)
     {
-        if(a[i]>=0) printf("%d|", a[i]);
+        if(a[i]>=-1) printf("%d|", a[i]);
     }
     printf("\n");
 }
-void set_null(int a[], int start, int size)
-{
-    int i;
-    for(i=start;i<size;i++)
-    {
-        a[i]=0;
-    }
-}
 
 // Coin sums
-int glouton(int v[], int n[], int m[], int i, int result, int skip)
+int euler31(int num[], int NUMBERS, int TARGET)
 {
-    int j, p=0;
+    //Matrice des résultats -> chaque ligne = usage d'une pièce plus grande en plus
+    // -> chaque colonne = somme visée, la dernière colonne étant la cible £2 ou 100 selon le problème
+    int result[NUMBERS][TARGET+1];
 
-    for(j=0;j<i;j++)
-    {   
-        if(n[j]!=-1) p = p+(v[j]*n[j]);
+    // Variables du nombre de possibilités de former la valeur cible avec les pièces inférieures
+    // et la pièce actuelle
+    int i, j, withNB, withoutNB;
+
+    // une seule façon de former la valeur 1 peu importe les pièces qu'on a
+    for(i=0;i<NUMBERS;i++)
+    {
+        result[i][0] = 1;
     }
 
-    printf("p = %d\n",p);
-
-    if(p==100)
+    // Les autres valeurs
+    for (i=0;i<NUMBERS;i++)
     {
-        printf("result+1 = %d\n", result+1);
-        return 1;
-    }
-    if(p<100)
-    {
-        while(n[i]<=m[i])
+        for (j=1;j<TARGET+1;j++)
         {
-            printf("while i=%d\n",i);
-            n[i] = n[i]+skip;
-            set_null(n,i+1,8);
-            display_array(n, 8);
-            result += glouton(v,n,m,i+1,result,200/v[i+1]);
+            // si on peut utiliser le nb actuel dans la valeur -> withNB = nb de façons de faire - (valeur-nb actuel)
+            if (j - num[i] >= 0) withNB = result[i][j-num[i]];
+            else withNB = 0;
+
+            // si on peut pas utiliser la valeur, nb de façons de faire pareil que la valeur précédente;
+            if (i >= 1) withoutNB = result[i-1][j];
+            else withoutNB = 0;
+
+            result[i][j] = withoutNB+withNB;            
         }
+        
     }
-    else
-    {
-        printf("end 0\n");
-        return 0;
-    }
+
+    // resultat dans la dernière case
+    printf("result : %d\n", result[NUMBERS-1][TARGET]);
+    return result[NUMBERS-1][TARGET];
+
 }
 
-void euler31()
+// Pandigital products
+void euler32()
 {
-    int v[] = {200,100,50,20,10,5,2,1};
-    int n[] = {0,0,0,0,0,0,0,0};
-    int m[] = {1,2,4,10,20,40,100,200};
-    int result = 0, i=0;
+    int i, product_max = 987654321, check_d, result_sum = 0, fact1 = 111, fact2 = 11, prod = 1221;
+    int *digits, *number;
 
-    result = glouton(v,n,m,i,result, 1);
-    printf("reponse : %d\n", result);
+    digits = (int*)malloc(sizeof(int)*9);
+    number = (int*)calloc(9,sizeof(int));
 
+    if (digits==NULL) exit(EXIT_FAILURE);
+    if (number == NULL) exit(EXIT_FAILURE);
+
+
+    free(digits);
+    free(number);
 }
-
 
 int main()
 {
-    euler31();
+    clock_t start, end;
+    start = clock();
+    int coins[] = {1,2,5,10,20,50,100,200};
+
+    euler31(coins,8,200);
+
+    end = clock();
+    double duration = ((double)end - start)/CLOCKS_PER_SEC;
+    printf("\nTime taken to execute in seconds : %f\n", duration);
     return EXIT_SUCCESS;
 }
