@@ -56,29 +56,137 @@ int euler31(int num[], int NUMBERS, int TARGET)
 }
 
 // Pandigital products
+/*int *product_decomposition(int n, int **products)
+{
+    int a, b, size = 2;
+    int *result;
+    result=(int*)malloc(sizeof(int)*size);
+    if (result==NULL) exit(EXIT_FAILURE);
+
+    for (a = 12; a<n/2 ; a++)
+    {
+        if (n%a==0) 
+    }
+}*/
 void euler32()
 {
-    int i, product_max = 987654321, check_d, result_sum = 0, fact1 = 111, fact2 = 11, prod = 1221;
-    int *digits, *number;
+    int **products, *actual_p;
+    int i;
 
-    digits = (int*)malloc(sizeof(int)*9);
-    number = (int*)calloc(9,sizeof(int));
+    products = (int**)malloc(sizeof(int*)*3024);
+    if (products==NULL) exit(EXIT_FAILURE);
+    for(i=0;i<3024;i++) products[i]=(int*)calloc(3,sizeof(int));
+    actual_p=(int*)calloc(3,sizeof(int));
 
-    if (digits==NULL) exit(EXIT_FAILURE);
-    if (number == NULL) exit(EXIT_FAILURE);
 
-
-    free(digits);
-    free(number);
+    for(i=0;i<3024;i++) free(products[i]);
+    free(products);
 }
+
+
+long long palindromic(long long n)
+{
+    long long i, r = 0, copy;
+    copy = n;
+
+    while(copy!=0)
+    {
+        r = r*10;
+        r = r+(copy%10);
+        copy = copy/10;
+    }
+    if(r == n) 
+    {
+        return 1;
+    }
+    return 0;
+}
+long long reverse(long long n)
+{
+    long long i, r = 0, copy;
+    copy = n;
+
+    while(copy!=0)
+    {
+        r = r*10;
+        r = r+(copy%10);
+        copy = copy/10;
+    }
+    return r;
+}
+
+long long prime(long long n)
+{
+    long long i;
+
+    if(n<=1) return 0;
+    if(n==2) return 1;
+
+    for (i=3;i<sqrt(n)+1;i++)
+    {
+        if (n%i == 0)return 0;
+    }
+    printf("%d is prime\n", n);
+    return 1;
+}
+
+long long get_first_digit(long long n)
+{
+    long long n2;
+    n2 = n;
+    while(n2>10)
+    {
+        n2 = n2/10;
+    }
+    return n2;
+}
+
+void euler808()
+{
+    long long sum = 0, i, max=0, reverse_i, sqrt_i, sqrt_rev, j;
+
+    for(i=10;max<50;i++)
+    {
+        j = get_first_digit(i);
+        if ((j==1)||(j==3)||(j==9))
+        {
+            if ((i%10==1)||(i%10==3)||(i%10==9))
+            {
+                if(palindromic(i)==0)
+                {
+                    reverse_i = reverse(i);
+                    sqrt_i = sqrt(i);
+                    sqrt_rev = sqrt(reverse_i);
+                    printf("i=%lli, reverse=%lli\n", i, reverse_i);
+                    printf("sqrt i : %lli, sqrt rev : %lli\n", sqrt_i, sqrt_rev);
+
+                    if ((sqrt_i*sqrt_i == i)&&(sqrt_rev*sqrt_rev == reverse_i))
+                    {
+                        if( (prime(sqrt_i)==1) && (prime(sqrt_rev)==1) )
+                        {
+                            sum += i;
+                            max++;
+                        }
+                        
+                    }
+                    printf("sum = %lli, max = %lli\n", sum, max);
+                }
+            }
+        }
+        
+    }
+    printf("reponse : %lli\n", sum);
+}
+
+
 
 int main()
 {
     clock_t start, end;
     start = clock();
-    int coins[] = {1,2,5,10,20,50,100,200};
+    
 
-    euler31(coins,8,200);
+    euler808();
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
