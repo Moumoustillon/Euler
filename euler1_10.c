@@ -313,7 +313,7 @@ long long euler10()
 
 int main()
 {   
-    printf("réponse : %ld\n", euler10()); 
+    printf("%lli\n", primeeuler3(169));
 
     return EXIT_SUCCESS;
 }
