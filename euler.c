@@ -3,13 +3,35 @@
 #include<math.h>
 #include<time.h>
 
+typedef struct identity
+{
+    int multiplicand;
+    int multiplier;
+    int product;
+} identity;
+
+typedef struct frac
+{
+    int num;
+    int den;
+} frac;
 
 void display_array(int a[], int size)
 {
     int i;
-    for(i=0;i<size;i++)
+    for(i=size-1;i>=7;i--)
     {
-        if(a[i]>=-1) printf("%d|", a[i]);
+        if(a[i]>=-1) printf("%d", a[i]);
+    }
+    printf("*");
+    for(i=6;i>=4;i--)
+    {
+        if(a[i]>=-1) printf("%d", a[i]);
+    }
+    printf(" = ");
+    for(i=3;i>=0;i--)
+    {
+        if(a[i]>=-1) printf("%d", a[i]);
     }
     printf("\n");
 }
@@ -56,129 +78,170 @@ int euler31(int num[], int NUMBERS, int TARGET)
 }
 
 // Pandigital products
-/*int *product_decomposition(int n, int **products)
+int *init_malloc(int *array, int size)
 {
-    int a, b, size = 2;
-    int *result;
-    result=(int*)malloc(sizeof(int)*size);
-    if (result==NULL) exit(EXIT_FAILURE);
-
-    for (a = 12; a<n/2 ; a++)
-    {
-        if (n%a==0) 
-    }
-}*/
-void euler32()
+    array=(int*)malloc(sizeof(int)*size);
+    if (array==NULL) exit(EXIT_SUCCESS);
+    return array;
+}
+int *init_calloc(int *array, int size)
 {
-    int **products, *actual_p;
-    int i;
-
-    products = (int**)malloc(sizeof(int*)*3024);
-    if (products==NULL) exit(EXIT_FAILURE);
-    for(i=0;i<3024;i++) products[i]=(int*)calloc(3,sizeof(int));
-    actual_p=(int*)calloc(3,sizeof(int));
-
-
-    for(i=0;i<3024;i++) free(products[i]);
-    free(products);
+    array = (int*)calloc(size, sizeof(int));
+    if (array==NULL) exit(EXIT_FAILURE);
+    return array;
 }
 
-
-long long palindromic(long long n)
+int *set_zero(int *array, int size)
 {
-    long long i, r = 0, copy;
-    copy = n;
-
-    while(copy!=0)
+    for(int i=0;i<size;i++)
     {
-        r = r*10;
-        r = r+(copy%10);
-        copy = copy/10;
+        array[i]=0;
     }
-    if(r == n) 
-    {
-        return 1;
-    }
-    return 0;
-}
-long long reverse(long long n)
-{
-    long long i, r = 0, copy;
-    copy = n;
-
-    while(copy!=0)
-    {
-        r = r*10;
-        r = r+(copy%10);
-        copy = copy/10;
-    }
-    return r;
+    return array;
 }
 
-long long prime(long long n)
+int *put_digits(int *tab, int i, int j, int k)
 {
-    long long i;
-
-    if(n<=1) return 0;
-    if(n==2) return 1;
-
-    for (i=3;i<sqrt(n)+1;i++)
+    int l = 0;
+    while(i!=0)
     {
-        if (n%i == 0)return 0;
+        tab[l] = i%10;
+        i = i/10;
+        l++;
     }
-    printf("%d is prime\n", n);
+
+    while(j!=0)
+    {
+        tab[l] = j%10;
+        j = j/10;
+        l++;
+    }
+    while(k!=0)
+    {
+        tab[l] = k%10;
+        k = k/10;
+        l++;
+    }
+    //display_array(tab, 9);
+    return tab;
+}
+
+int pandigital(int *tab, int *verif)
+{
+    int i, j;
+    for(i=0;i<9;i++)
+    {
+        j = tab[i]-1;
+        if(verif[j]!=0)
+        {
+            verif = set_zero(verif, 9);
+            
+            return 0;
+        }
+        verif[j]=1;
+    }
+    verif = set_zero(verif, 9);
+    printf("is pandigital\n");
     return 1;
 }
-
-long long get_first_digit(long long n)
+int digits(int j)
 {
-    long long n2;
-    n2 = n;
-    while(n2>10)
+    int count=0;
+    while(j!=0)
     {
-        n2 = n2/10;
+        count++;
+        j/=10;
     }
-    return n2;
+    return count;
 }
-
-void euler808()
+void euler32()
 {
-    long long sum = 0, i, max=0, reverse_i, sqrt_i, sqrt_rev, j;
+    int *result, *verif;
+    int i, j, k, sum = 0;
+    verif = init_calloc(verif, 9);
+    result = init_malloc(result,9);
 
-    for(i=10;max<50;i++)
+    for (i=1000;i<=9999;i++)
     {
-        j = get_first_digit(i);
-        if ((j==1)||(j==3)||(j==9))
+        for(j=2;j<=999;j++)
         {
-            if ((i%10==1)||(i%10==3)||(i%10==9))
+            if (i%j==0)
             {
-                if(palindromic(i)==0)
+                k = i/j;
+                if (digits(k)==5-digits(j)) 
                 {
-                    reverse_i = reverse(i);
-                    sqrt_i = sqrt(i);
-                    sqrt_rev = sqrt(reverse_i);
-                    printf("i=%lli, reverse=%lli\n", i, reverse_i);
-                    printf("sqrt i : %lli, sqrt rev : %lli\n", sqrt_i, sqrt_rev);
-
-                    if ((sqrt_i*sqrt_i == i)&&(sqrt_rev*sqrt_rev == reverse_i))
+                    result=put_digits(result, i, j ,k);
+                    if (i==7852)
                     {
-                        if( (prime(sqrt_i)==1) && (prime(sqrt_rev)==1) )
-                        {
-                            sum += i;
-                            max++;
-                        }
-                        
+                        display_array(result, 9); 
+                        printf("sum : %d+%d \n", sum, i);
                     }
-                    printf("sum = %lli, max = %lli\n", sum, max);
+                    if (pandigital(result, verif)==1)
+                    {   
+                        display_array(result, 9);
+                        printf("sum : %d+%d --> ", sum, i);
+                        sum = sum+i; 
+                        printf("%d\n", sum);
+                        break;
+                    }
                 }
+                result = set_zero(result,9);
             }
         }
-        
     }
-    printf("reponse : %lli\n", sum);
+    printf("answer : %d\n", sum);
 }
 
+//Digit cancelling fractions
+frac cancel_common_digit(frac f, int digit)
+{   
+    
+}
+frac common_digit(frac f)
+{
+    frac reduced = f;
+    int common = 0, num=reduced.num, den=reduced.den;
 
+    if (num%10==den%10)
+    {
+        common = num%10;
+        return common;
+    }
+    if ((num/10)%10==den%10)
+    {
+        common = den%10;
+        return common;
+    }
+    if (num%10==(den/10)%10)
+    {
+        common = num%10;
+        return common;
+    }
+    if ((num/10)%10==(den/10)%10)
+    {
+        common = num%10;
+        return common;
+    }
+    return -1;
+}
+void euler33()
+{
+    frac f, result;
+    int common_digit;
+    result.num = 1;
+    result.den = 2;
+
+    for(f.den = 11;den<100;den++)
+    {
+        for(f.num=10;num<den;num++)
+        {
+            common_digit=common_digit(f.num, f.den);
+            if (common_digit==-1) break;
+
+        }
+    }
+
+}
 
 int main()
 {
@@ -186,7 +249,7 @@ int main()
     start = clock();
     
 
-    euler808();
+    euler32();
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;

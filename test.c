@@ -1,14 +1,17 @@
-#include "tools.h"
+#include<stdio.h>
+#include<stdlib.h>
 
 
 int main()
 {
-    int *tab;
-
-    tab = (int*)calloc(10,sizeof(int));
-    //display_array_pos(tab, 10);
-
-    printf("coucou\n");
-    free(tab);
+    int j=2;
+    while(j<1000)
+    {
+        if (7852%j==0)
+        {
+            printf("%d * %d = 7852\n", j, 7852/j);
+        }
+        j++;
+    }
     return EXIT_SUCCESS;
 }
