@@ -3,20 +3,6 @@
 #include<math.h>
 #include<time.h>
 
-int pandigital(int n)
-{
-    int digits[]={0,0,0,0,0,0,0,0,0};
-    if (n<123456789) return 0;
-    if (n>987654321) return 0;
-    while(n!=0)
-    {
-        if (digits[(n%10)-1]!=0) return 0;
-        digits[(n%10)-1] = 1;
-        n/=10;
-    }
-    return 1;
-}
-
 int size_num(int n)
 {
     int size=0;
@@ -51,28 +37,37 @@ int conv_tab_num(int concat[],int size)
 
 int pandigital(int num[], int size)
 {
-    int reverse[], i, j=0;
-    for(i=size-1;i>=0;i--)
+    int test[]={0,0,0,0,0,0,0,0,0}, i;
+    for (i=0;i<size;i++)
     {
-        reverse[j]=num[i];
-        j++;
+        if (test[num[i]-1]!=0)
+        {
+            printf("not pandigital\n");
+            return 0;
+        }
+        test[num[i]-1]=1;
     }
-    for(i=0;i<size;i++)
-    {
-        if (num[i]!=reverse[i]) return 0;
-    }
+    printf("is pandigital\n");
     return 1;
+}
+
+void display_array(int n[], int size)
+{
+    for (int i=0;i<size;i++)
+    {
+        printf("%d", n[i]);
+    }
+    printf("\n");
 }
 
 int euler38()
 {
     int number, mult, product, digits = 0, largest_concat = 123456789, n_concat = 0, i;
-    int concat[]={0,0,0,0,0,0,0,0,0}
+    int concat[]={0,0,0,0,0,0,0,0,0};
 
-    // 2 digit numbers
-    for (number=10;number<=99;number++)
+    for (number=10;number<=9999;number++)
     {   
-        printf("number = %d\n", number);
+        printf("\nnumber = %d\n", number);
         digits = 0;
         // concatenating the products
         for (mult = 1; digits<9;mult++)
@@ -81,35 +76,26 @@ int euler38()
             product = reverse_num(number*mult);
             while(product!=0)
             {
-                concat[digits]=product%10;
-                product/=10;
                 digits++;
-                if (digits>=9)
+                concat[digits-1]=product%10;
+                product/=10;
+                if (digits>9)
                 {
-                    printf("too much digits (%d*%d=%d)\n", number, mult, product);
+                    printf("\n    too much digits\n");
                     concat[0]=0;
                     break;
                 }
             }
         }
+        printf("\n");
+        display_array(concat, 9);
         if(pandigital(concat, 9)==1)
         {
             n_concat = conv_tab_num(concat, 9);
-        }
-
-        
+            if (largest_concat<=n_concat) largest_concat = n_concat; printf("new largest = %d\n", largest_concat);
+        }  
     }
-    // 3 digit numbers
-    for (number=100;number<=999;number++)
-    {
-        
-    }
-    // 4 digit numbers
-    for (number=1000;number<=9999;number++)
-    {
-        
-    }
-
+    return largest_concat;
 }
 
 int main()
@@ -117,7 +103,7 @@ int main()
     clock_t start, end;
     start = clock();
 
-    euler808();
+    printf("\n\nanswer : %d\n", euler38());
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
