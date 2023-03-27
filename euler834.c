@@ -25,7 +25,7 @@ unsigned long long *find_sequence_N(long N, unsigned long long *N_sequence, long
     {
         N_sequence[i] = N_sequence[i-1]+(N+i);
     }
-    //display_sequence(N_sequence,N*N,N);
+    display_sequence(N_sequence,N*N,N);
     return N_sequence;
 }
 
@@ -104,14 +104,12 @@ unsigned long long find_sum_U(long N)
 int main()
 {
     clock_t start, end;
-    start = clock();
-
     unsigned long long U;
-
+   
     U = find_sum_U(1234567);
 
-    printf("answer : U=%llu\n", U);
-    
+    printf("answer : %llu\n", U);
+
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;

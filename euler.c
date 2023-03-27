@@ -19,19 +19,9 @@ typedef struct frac
 void display_array(int a[], int size)
 {
     int i;
-    for(i=size-1;i>=7;i--)
+    for(i=size-1;i>=0;i--)
     {
-        if(a[i]>=-1) printf("%d", a[i]);
-    }
-    printf("*");
-    for(i=6;i>=4;i--)
-    {
-        if(a[i]>=-1) printf("%d", a[i]);
-    }
-    printf(" = ");
-    for(i=3;i>=0;i--)
-    {
-        if(a[i]>=-1) printf("%d", a[i]);
+        printf("%d", a[i]);
     }
     printf("\n");
 }
@@ -192,56 +182,65 @@ void euler32()
     printf("answer : %d\n", sum);
 }
 
-//Digit cancelling fractions
-frac cancel_common_digit(frac f, int digit)
-{   
-    
-}
-frac common_digit(frac f)
+//Digit factorials
+int *digits_list(int n, int *list)
 {
-    frac reduced = f;
-    int common = 0, num=reduced.num, den=reduced.den;
-
-    if (num%10==den%10)
+    int i=0;
+    while(n!=0)
     {
-        common = num%10;
-        return common;
+        list[i]=n%10;
+        n=n/10;
+        i++;
     }
-    if ((num/10)%10==den%10)
-    {
-        common = den%10;
-        return common;
-    }
-    if (num%10==(den/10)%10)
-    {
-        common = num%10;
-        return common;
-    }
-    if ((num/10)%10==(den/10)%10)
-    {
-        common = num%10;
-        return common;
-    }
-    return -1;
+    return list;
 }
-void euler33()
+long factorial(int n)
 {
-    frac f, result;
-    int common_digit;
-    result.num = 1;
-    result.den = 2;
-
-    for(f.den = 11;den<100;den++)
+    long result=1;
+    if (n==-1) return 0;
+    for(int i = 2;i<=n;i++)
     {
-        for(f.num=10;num<den;num++)
+        result = result*i;
+    }
+    return result;
+}
+
+long sum_fact_digits(int n)
+{
+    int size_list = 7;
+    int *list;
+    int i, sum=0;
+
+    list=(int*)malloc(sizeof(int)*7);
+    if (list==NULL) exit(EXIT_FAILURE);
+    for(i=0;i<7;i++)
+    {
+        list[i]=-1;
+    }
+    list = digits_list(n, list);
+    for (i=0;i<size_list;i++)
+    {
+        sum = sum+factorial(list[i]);
+    }
+    free(list);
+    printf("sum(%d)=%d\n", n, sum);
+    return sum;
+}
+void euler34()
+{
+    int i;
+    long long result=0;
+    for(i=3;i<=40585;i++)
+    {
+        if (i==sum_fact_digits(i))
         {
-            common_digit=common_digit(f.num, f.den);
-            if (common_digit==-1) break;
-
+            result+=i;
         }
     }
-
+    printf("result : %lli\n", result);
 }
+
+
 
 int main()
 {
@@ -249,7 +248,7 @@ int main()
     start = clock();
     
 
-    euler32();
+    euler34();
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
