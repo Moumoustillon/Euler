@@ -1,46 +1,89 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<time.h>
 
-int is_palindrome(int n) {
-    int reverse = 0, ncopy = n;
-    while (ncopy != 0) {
-        reverse = reverse * 10 + ncopy % 10;
-        ncopy /= 10;
+unsigned long reverse_long(unsigned long n)
+{
+    unsigned long r=0;
+    while(n!=0)
+    {
+        r = r*10;
+        r = r+n%10;
+        n /= 10;
     }
-    return (n == reverse);
+    return r;
 }
 
-void reverse_array(int arr[], int size) {
-    for (int i = 0, j = size - 1; i < j; i++, j--) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-}
-
-int is_palindrome_base2(int n) {
-    int binary[32] = {0};
-    int size = 0;
-    while (n > 0) {
-        binary[size++] = n % 2;
-        n /= 2;
-    }
-    reverse_array(binary, size);
-    for (int i = 0, j = size - 1; i < j; i++, j--) {
-        if (binary[i] != binary[j]) {
-            return 0;
-        }
+int palindromicu(unsigned long n)
+{
+    unsigned long r;
+    r = reverse_long(n);
+    while (n!=0)
+    {
+        if (n%10 != r%10) return 0;
+        n/=10;
+        r/=10;
     }
     return 1;
 }
 
-int main() {
-    int sum = 0;
-    for (int i = 1; i < 1000000; i++) {
-        if (is_palindrome(i) && is_palindrome_base2(i)) {
-            sum += i;
+int palindromic(int n)
+{
+    int r;
+    r = reverse_long(n);
+    while (n!=0)
+    {
+        if (n%10 != r%10) return 0;
+        n/=10;
+        r/=10;
+    }
+    return 1;
+}
+
+unsigned long convert_to_binary(int n)
+{
+    unsigned long bin = 0;
+    while(n!=0)
+    {
+        bin = bin*10 + n%2;
+        n = n/2;
+    }
+    printf("bin : %llu\n", bin);
+    return bin;
+    
+}
+
+void euler36()
+{
+    int n = 0, i, j, sum = 0, pal;
+    unsigned long bin;
+    for (i=10;i<1000000;i++)
+    {
+        
+        if (palindromic(i)==1)
+        {
+            printf("i = %llu\n", i);
+            printf("pal : %llu\n", i);
+            bin = convert_to_binary(i);
+            if (palindromicu(bin)==1)
+            {
+                sum += i;
+            }
         }
     }
-    printf("Sum of palindromic numbers in both base 10 and base 2: %d\n", sum);
+    printf("answer : %llu\n", sum);
+}
+
+int main()
+{
+    clock_t start, end;
+    start = clock();
+
+    euler36();
+    
+    end = clock();
+    double duration = ((double)end - start)/CLOCKS_PER_SEC;
+    printf("\nTime taken to execute in seconds : %f\n", duration);
     return EXIT_SUCCESS;
 }
