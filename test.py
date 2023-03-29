@@ -1,26 +1,27 @@
-def is_pandigital(n):
-    """Returns True if n is pandigital, i.e., if it contains all the digits from 1 to 9 exactly once."""
-    return sorted(str(n)) == list('123456789')
+from functools import reduce
+from operator import mul
 
-largest_pandigital = 0
 
-# 3-digit integers
-for i in range(912, 988):
-    concatenated_product = i * 100002  # product of i and (1,2)
-    if is_pandigital(concatenated_product):
-        largest_pandigital = max(largest_pandigital, concatenated_product)
-    concatenated_product = i * 100020  # product of i and (1,2,3)
-    if is_pandigital(concatenated_product):
-        largest_pandigital = max(largest_pandigital, concatenated_product)
-    concatenated_product = i * 100200  # product of i and (1,2,3,4)
-    if is_pandigital(concatenated_product):
-        largest_pandigital = max(largest_pandigital, concatenated_product)
-    concatenated_product = i * 102003  # product of i and (1,2,3,4,5)
-    if is_pandigital(concatenated_product):
-        largest_pandigital = max(largest_pandigital, concatenated_product)
-    concatenated_product = i * 120003  # product of i and (1,2,3,4,5,6)
-    if is_pandigital(concatenated_product):
-        largest_pandigital = max(largest_pandigital, concatenated_product)
-    concatenated_product = i * 120300  #
+def solve():
+    """ Compute the answer to Project Euler's problem #40 """
 
-print(largest_pandigital)
+    upper_limit = 200000  # large enough s.t. the total string length exceeds the highest index
+
+    fractional_string = "".join(["{}".format(i + 1) for i in range(upper_limit)])  # build the string representation
+
+    # Extract the relevant d_i values
+    indices = [1, 10, 100, 1000, 10000, 100000, 1000000]
+    digits = [fractional_string[i - 1] for i in indices]  # Python using 0-based indices
+
+    for i in range (0,7) :
+        print(fractional_string[indices[i]-1])
+
+    # Multiply each d_i together to get the answer
+    answer = reduce(mul, map(int, digits))
+    
+
+    return answer
+
+
+expected_answer = 210
+print(solve())
