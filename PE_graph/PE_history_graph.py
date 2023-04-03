@@ -21,7 +21,7 @@ df["Cumulative"] = df["Problems"].cumsum()
 df["Previous"] = df["Cumulative"] - df["Problems"]
 
 cumsum = df[["Date", "Cumulative"]]
-cumsum.rename(columns={"Cumulative": "Problems Solved"}, inplace=True).copy()
+cumsum.rename(columns={"Cumulative": "Problems Solved"}, inplace=True)
 
 previous = df[["Date", "Previous"]].tail(-1)
 previous.rename(columns={"Previous": "Problems Solved"}, inplace=True)
@@ -30,4 +30,4 @@ result = pd.concat([cumsum, previous])
 result = result.sort_values(by=["Date", "Problems Solved"], ascending=True)
 
 fig = result.plot(x="Date", y="Problems Solved").get_figure()
-fig.savefig("out.jpg")
+fig.savefig("PEgraph.jpg")

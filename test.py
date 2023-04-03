@@ -1,27 +1,14 @@
-from functools import reduce
-from operator import mul
 
+p836_txt = """
+<p>Let $A$ be an <b>affine plane</b> over a <b>radically integral local field</b> $F$ with residual characteristic $p$.</p>
 
-def solve():
-    """ Compute the answer to Project Euler's problem #40 """
+<p>We consider an <b>open oriented line section</b> $U$ of $A$ with normalized Haar measure $m$.</p>
 
-    upper_limit = 200000  # large enough s.t. the total string length exceeds the highest index
+<p>Define $f(m, p)$ as the maximal possible discriminant of the <b>jacobian</b> associated to the <b>orthogonal kernel embedding</b> of $U$ <span style="white-space:nowrap;">into $A$.</span></p>
 
-    fractional_string = "".join(["{}".format(i + 1) for i in range(upper_limit)])  # build the string representation
+<p>Find $f(20230401, 57)$. Give as your answer the concatenation of the first letters of each bolded word.</p>
+"""
 
-    # Extract the relevant d_i values
-    indices = [1, 10, 100, 1000, 10000, 100000, 1000000]
-    digits = [fractional_string[i - 1] for i in indices]  # Python using 0-based indices
-
-    for i in range (0,7) :
-        print(fractional_string[indices[i]-1])
-
-    # Multiply each d_i together to get the answer
-    answer = reduce(mul, map(int, digits))
-    
-
-    return answer
-
-
-expected_answer = 210
-print(solve())
+def p836(p836_txt):
+    return ''.join(x[0] for y in [x[:x.index('</b>')] for x in p836_txt.split('<b>') if '</b>' in x] for x in y.split(' '))
+print(p836(p836_txt))
