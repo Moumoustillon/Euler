@@ -1,8 +1,20 @@
-from itertools import permutations
-datas=list(map(lambda j: ''.join(j) ,list(permutations('0123456789'))))
-ans=0
-for number in datas:
-    if int(number[3])%2==0 and int(number[5])%5==0:
-      if int(number[1:4])%2==0 and int(number[2:5])%3==0 and int(number[3:6])%5==0 and int(number[4:7])%7==0 and int(number[5:8])%11==0 and int(number[6:9])%13==0 and int(number[7:10])%17==0:
-          ans+=int(number)
-print(ans)
+from math import sqrt
+
+def is_pentagonal(n): return (1+sqrt(1+24*n))%6==0
+
+i=0
+while True:
+    i+=1
+    k = i*(3*i-1)//2
+    for v in range(1,i):
+        j = v*(3*v-1)//2
+        if is_pentagonal(k-j) and is_pentagonal(k+j) :
+            print(k-j)
+            print(k)
+            print(i)
+            print(j)
+            print(v)
+            break
+    else:
+        continue
+    break

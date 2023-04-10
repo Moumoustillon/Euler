@@ -3,16 +3,6 @@
 #include<math.h>
 #include<time.h>
 
-int is_pentagonal(int num)
-{
-    int n = 1+(int)sqrt(1+24*num)/6;
-    if (num == (n*(3*n-1))/2) 
-    {
-        return 1;
-    }
-    return 0;
-}
-
 int prime(int n)
 {
     if (n<=1) return 0;
@@ -24,6 +14,29 @@ int prime(int n)
     return 1;
 }
 
+void display_array(int array[], int size)
+{
+    int i;
+    for (i=0;i<size;i++)
+    {
+        printf(" %d |", array[i]);
+    }
+    printf("\n");
+}
+
+void init_primes(int primes[], int size)
+{
+    int i, j=0;
+    for (i=2;j<size;i++)
+    {
+        if (prime(i)==1)
+        {
+            primes[j] = i; 
+            j++;
+        }
+    }
+}
+
 void euler50()
 {   
     int i, j, k, size = 78498, sum = 0, nbterms = 0, nbmax = 0, primemax;
@@ -32,33 +45,26 @@ void euler50()
     init_primes(primes, size);
     display_array(primes, size);
     
-    for (i=2;i<size;i++)
+    for (i=0;i<size;i++)
     {
-        for (j=0;j<=i;j++)
+        k = i;
+        sum = 0;
+        while (sum<1000000)
         {
-            printf("%d = ", primes[i]);
-            k = j;
-            sum = 0;
-            nbterms = 0;
-            while (sum<primes[i])
+            sum += primes[k];
+            if (prime(sum)==1)
             {
-                printf("%d + ", primes[k]);
-                sum += primes[k];
-                nbterms++;
-                k++;
-            }
-            printf(" = %d\n", sum);
-            if (sum == primes[i])
-            {
-                if (nbmax<nbterms)
+                nbterms = k-i;
+                if (nbterms>nbmax)
                 {
                     nbmax = nbterms;
-                    primemax = primes[i];
+                    primemax = sum;
                 }
             }
+            k++;
         }
-        
     }
+
     printf("%d, %d\n", primemax, nbmax);
 }
 
@@ -66,18 +72,8 @@ int main()
 {
     clock_t start, end;
     start = clock();
-    
-    int sum = 0, i;
-    for (i=0;i<=1000000;i++)
-    {
-        if (prime(i)==1)
-        {
-            sum++;
-            printf("%d, %d\n", i, sum);
-        }
-    }
-    
 
+    euler50();
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
