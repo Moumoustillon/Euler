@@ -7,7 +7,7 @@
 int fill_primes_array(int primes[], int size)
 {
     int i, t=0;
-    for (i=0;t<size;i++)
+    for (i=2;t<size;i++)
     {
         if (prime(i)==1)
         {
@@ -15,24 +15,56 @@ int fill_primes_array(int primes[], int size)
             t++;
         }
     }
+    display_array(primes, size);
+}
+
+int nb_prime_factors(int primes[], int size, int num)
+{
+    int i = 0, nb_f = 0, n = num, distinct = 0;
+
+    printf("%d = ", n);
+    while (n != 1)
+    {
+        if (n % primes[i] == 0)
+        {
+            printf("%d*", primes[i]);
+            n = n/primes[i];
+            nb_f = nb_f+1;
+            
+        }
+        else
+        {
+            i++;
+        }
+    }
+    printf("\n");
+    return nb_f;
 }
 
 void euler47()
 {
-    int size = 200, i, j, four = 0, nb_fac = 0, index_p = 0;
+    int size = 200, i, four = 0, nb;
     int primes[size];
 
     fill_primes_array(primes, size);
 
-    for (i = 10 ; four <4 ; i++)
-    {
-        j = i;
-        index_p = 0;
-        while (j!=0)
+    //printf("test\n");
+    for (i=2;four<4;i++)
+    {   
+        nb = nb_prime_factors(primes, size, i);
+        //printf("test2\n");
+        printf("%d : %d\n", i, nb);
+        
+        if (nb==4)
         {
-
+            four++;
+        }
+        else
+        {
+            four = 0;
         }
     }
+    printf("%d\n", i-4);
 }
 
 int main()

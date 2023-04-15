@@ -2,29 +2,20 @@
 #include<stdlib.h>
 #include<math.h>
 #include<time.h>
+#include"toolbox.h"
 
-int isPentagonal(long long int num) {
-    // A number is part of the pentagonal sequence if and only if
-    // it can be expressed as n(3n-1)/2 for some positive integer n
-    // We can rearrange this formula to check if num is a pentagonal number
-    // using the inverse formula: n = (sqrt(24*num + 1) + 1) / 6
-    long long int root = (long long int)sqrt(24 * num + 1);
-    if ((root * root == 24 * num + 1) && ((root + 1) % 6 == 0))
+int fill_primes_array(int primes[], int size)
+{
+    int i, t=0;
+    for (i=2;t<size;i++)
     {
-        return 1;
+        if (prime(i)==1)
+        {
+            primes[t] = i;
+            t++;
+        }
     }
-    return 0;
-}
-int isHexagonal(long long num) {
-    // A number is part of the hexagonal sequence if and only if
-    // it can be expressed as n(2n-1) for some positive integer n
-    // We can rearrange this formula to check if (sqrt(8*num + 1) + 1) / 4 is an integer
-    long long root = sqrt(8 * num + 1);
-    if (((int)root == root) && ((int)root % 4 == 3))
-    {
-        return 1;
-    }
-    return 0;
+    display_array(primes, size);
 }
 
 
@@ -33,9 +24,8 @@ int main()
 {
     clock_t start, end;
     start = clock();
-    int n = 1532447841;
-    printf("%d\n", isPentagonal(n));
-    printf("%d\n", isHexagonal(n));
+    int primes[200];
+    fill_primes_array(primes, 200);
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
