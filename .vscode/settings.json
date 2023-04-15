@@ -3,7 +3,8 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "cstdlib": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "toolbox.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
