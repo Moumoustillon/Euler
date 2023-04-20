@@ -47,9 +47,12 @@ int permutation_ab(int a, int b)
     return 1;
 }
 
-int power(int n)
+int power(int x, int n)
 {
-    return n*n;
+    if (n<0) return n;
+    if (n==0) return 1;
+    if (n%2 == 0) return power(x*x, n/2);
+    return x*power(x*x,(n-1)/2);
 }
 
 int prime(int n)

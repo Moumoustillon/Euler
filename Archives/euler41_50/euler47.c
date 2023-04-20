@@ -18,7 +18,22 @@ int fill_primes_array(int primes[], int size)
     display_array(primes, size);
 }
 
-int nb_prime_factors(int primes[], int size, int num)
+int count_in_array(int sieve[], int size)
+{
+    int i, res = 0;
+    for (i=0;i<size;i++)
+    {
+        if (sieve[i]!=0)
+        {
+            res ++;
+            sieve[i]=0;
+        }
+
+    }
+    return res;
+}
+
+int nb_prime_factors(int primes[], int sieve[], int size, int num)
 {
     int i = 0, nb_f = 0, n = num, distinct = 0;
 
@@ -29,7 +44,7 @@ int nb_prime_factors(int primes[], int size, int num)
         {
             printf("%d*", primes[i]);
             n = n/primes[i];
-            nb_f = nb_f+1;
+            sieve[i] = 1;
             
         }
         else
@@ -38,28 +53,29 @@ int nb_prime_factors(int primes[], int size, int num)
         }
     }
     printf("\n");
-    return nb_f;
+    return count_in_array(sieve, size);
 }
 
 void euler47()
 {
-    int size = 200, i, four = 0, nb;
-    int primes[size];
+    int size = 99999, i, four = 0, nb;
+    int primes[size], sieve[size];
+
+    for (i=0;i<size;i++)
+    {
+        sieve[i]=0;
+    }
 
     fill_primes_array(primes, size);
 
     //printf("test\n");
-    for (i=2;four<4;i++)
+    for (i=2*3*5*7;four<4;i++)
     {   
-        nb = nb_prime_factors(primes, size, i);
-        //printf("test2\n");
-        printf("%d : %d\n", i, nb);
-        
-        if (nb==4)
+        if (nb_prime_factors(primes, sieve, size, i)==4)
         {
             four++;
         }
-        else
+        else 
         {
             four = 0;
         }
