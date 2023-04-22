@@ -25,6 +25,16 @@ void display_array_as_number(int array[], int size)
     printf("\n");
 }
 
+int factorial(int n)
+{
+    int i, fact = 1;
+    for (i=2;i<=n;i++)
+    {
+        fact *= i;
+    }
+    return fact;
+}
+
 int permutation_ab(int a, int b)
 {
     int digits[] = {0,0,0,0,0,0,0,0,0,0};

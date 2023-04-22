@@ -4,6 +4,8 @@
 void display_array(int array[], int size);
 void display_array_as_number(int array[], int size);
 
+int factorial(int n);
+
 int permutation_ab(int a, int b); // 1 if a and b are permutations of each other
 int power(int x, int n); // returns x^n
 int prime(int n); // 1 if n is primex
