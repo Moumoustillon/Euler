@@ -4,6 +4,29 @@
 #include<math.h>
 #include"toolbox.h"
 
+int max(int a, int b)
+{
+    if (a>b) return a;
+    return b;
+}
+
+int min(int a, int b)
+{
+    if (a<b) return a;
+    return b;
+}
+
+int count_digits(int n)
+{
+    int digits = 0;
+    while(n!=0)
+    {
+        digits++;
+        n/=10;
+    }
+    return digits;
+}
+
 void display_array(int array[], int size)
 {
     int i;
@@ -25,7 +48,7 @@ void display_array_as_number(int array[], int size)
     printf("\n");
 }
 
-int permutation_ab(int a, int b)
+int is_a_permutation_of_b(int a, int b)
 {
     int digits[] = {0,0,0,0,0,0,0,0,0,0};
     int i;
@@ -62,6 +85,30 @@ int prime(int n)
     for (int i=2;i<=sqrt(n);i++)
     {
         if (n%i==0) return 0;
+    }
+    return 1;
+}
+
+int is_coprime(int a, int b)
+{
+    int max, min, div;
+    if ((a<=1)||(b<=1)) return 0;
+    if (a>b)
+    {
+        max = a;
+        min = b;
+    }
+    else 
+    {
+        max = b;
+        min = a;
+    }
+    for (div = 2;div<=min;div++)
+    {
+        if ((min%div==0)&&(max%div==0))
+        {
+            return 0;
+        }
     }
     return 1;
 }

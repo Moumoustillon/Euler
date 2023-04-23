@@ -4,14 +4,12 @@
 #include<time.h>
 #include"toolbox.h"
 
-
-
 int main()
 {
     clock_t start, end;
     start = clock();
 
-    euler00();
+    euler();
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
