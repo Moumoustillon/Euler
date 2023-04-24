@@ -2,185 +2,107 @@
 #include<stdlib.h>
 #include<math.h>
 #include<time.h>
-
-// 785
-
-long long gcd(long long a, long long b, long long c)
-{
-    int i, mini = min(a, min(b,c));
-    if ((a<=0)||(b<=0)||(c<=0)) return 0;
-    for (i=2;i<=mini;i++)
-    {
-        if ( (a%i==0)&&(b%i==0)&&(c%i==0))
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
-
-
-void solve_equation(long long N)
-{
-    long long x, y, z, S = 0;
-    for (z = 1; z <= N; z++)
-    {
-        for (y = 1; y <= z; y++)
-        {
-            
-            for (x = 1; x <= y; x++)
-            {
-                
-                if (15*(x*x+y*y+z*z) == 34*(x*y+y*z+z*x))
-                {
-                    printf("(%lli,%lli,%lli)\n", x, y, z);
-                    S += x + y + z;
-                }
-            }
-        }
-    }
-    printf("answer: %lli\n", S);
 #include"toolbox.h"
 
-void init_matrix(int matrix[][163], int size)
-{
-    int i, j;
-    for (i=0;i<size;i++)
-    {
-        for (j=0;j<163;j++)
-        {
-            matrix[i][j]=-1;
-        }
-    }
-}
-
-void copy_array(int n[][163], int size, int f)
-{
-    int i=0;
-    while(n[f-1][i]!=-1)
-    {
-        n[f][i]=n[f-1][i];
-        i++;
-    }
-}
-
-void invert_array(int n[], int size)
-{
-    int i, j = size-1, change;
-    for (i = 0;i<=size/2;i++)
-    {
-        change = n[i];
-        n[i] = n[j];
-        n[j] = change;
-        j--;
-    }
-}
-
-int factorial2(int n[][163], int size, int f)
-{
-    int j, r;
-    copy_array(n, size, f);
-
-    j = 0;
-    r = 0;
-
-    while(n[f][j]!=-1)
-    {
-        n[f][j] = (n[f][j]*f)+r;
-        r = n[f][j]/10;
-        n[f][j] = n[f][j]%10;
-        //printf("%d", n[f][j]);
-        j++;
-    }
-    while (r!=0)
-    {
-        n[f][j] = r%10;
-        r/=10;
-        //printf("%d", n[f][j]);
-        j++; 
-    }
-
-    return j;
-}
-
-
-void display_matrix_llu(int matrix[][163], int size)
-{
-    int i, j;
-    for (i=0;i<size;i++)
-    {
-        j = 0;
-        while(matrix[i][j]!=-1)
-        {
-            printf("%d", matrix[i][j]);
-            j++;
-        }
-        printf("\n");
-    }
-    
-}
-
-void add_array(int r[], int s[], int size, int rank)
+void display_array_as_number_ccc(int array[], int size)
 {
     int i;
-    while ()
+    for (i=0; array[i]!=-1; i++)
+    {
+        printf("%d", array[i]);
+    }
+    printf("\n");
 }
 
-void multiply_array(int n[], int sizen, int sizer, int r[], int result[])
+int* init_array_p(int *p, int size)
 {
-    int i, j, rank = 0, rest = 0, s[200];
-    for (i = 0;i<sizer;i++)
+    p = (int*)malloc(sizeof(int)*size);
+    for(int i=0;i<size;i++)
     {
-        for (j=0;j<sizen;j++)
-        {
-            s[j] = n[j]*r[i] + rest;
-            rest = s[j]/10;
-            s[j] = s[j]%10;
-        }
-
+        p[i] = -1;
     }
-
+    return p;
 }
 
-void euler53()
+void power_array(int *p, int size, int a, int b) 
 {
-    int n, r, sum = 0, value = 0;
-    int fact[101][163];
-    int digits[101];
-    int fraction[2][163];
-    
-    init_matrix(fact, 101);
-
-    fact[0][0] = 1;
-    
-    for (n = 1;n<=100;n++)
+    int acopy = a, j, r;
+    // init array a
+    for (int i = 0; acopy != 0; i++)
     {
-        printf("%d\n", n);
-        digits[n] = factorial2(fact, 101, n);
-        printf("\n");
+        p[i] = acopy%10;
+        acopy /= 10;
     }
-
-    for (n=23;n<=100;n++)
+    
+    
+    // multiply array by a b times
+    for (int i = 2; i <= b; i++)
     {
-        for (r=1;r<=n;r++)
+        j = 0;
+        r = 0;
+        while(p[j]!=-1)
+        {
+            p[j] = (p[j]*a)+r;
+            r = p[j]/10;
+            p[j] %= 10;
+
+            j++;
+        }
+        while (r!=0)
+        {
+            p[j] = r%10;
+            r/=10;
+            j++; 
+        }   
+    }
+}
+
+int sum_digits(int *p, int size)
+{
+    int sum = 0, i = 0;
+    while(p[i] != -1)
+    {
+        sum += p[i];
+        i++;
+    }
+    return sum;
+}
+
+void euler56()
+{
+    int a, b, sum = 0, size = 300, sum_d;
+    int *num;
+
+    for (a = 1 ; a < 100 ; a++)
+    {
+        
+        for (b = 1 ; b < 100 ; b++)
         {
 
+            num = init_array_p(num, size);
+            power_array(num, size, a, b);
+
+            sum_d = sum_digits(num, size);
+
+            sum = max(sum, sum_d);
         }
     }
-
-
-    printf("answer : %d\n", sum);
+    printf("answer %d\n", sum);
+    free(num);
 }
+
 
 int main()
 {
     clock_t start, end;
     start = clock();
 
-    euler53();
+    euler56();
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
     printf("\nTime taken to execute in seconds : %f\n", duration);
     return EXIT_SUCCESS;
 }
+
+
