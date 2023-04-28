@@ -4,105 +4,65 @@
 #include<time.h>
 #include"toolbox.h"
 
-void display_array_as_number_ccc(int array[], int size)
+float pouding(float x) 
 {
-    int i;
-    for (i=0; array[i]!=-1; i++)
-    {
-        printf("%d", array[i]);
-    }
-    printf("\n");
-}
-
-int* init_array_p(int *p, int size)
-{
-    p = (int*)malloc(sizeof(int)*size);
-    for(int i=0;i<size;i++)
-    {
-        p[i] = -1;
-    }
-    return p;
-}
-
-void power_array(int *p, int size, int a, int b) 
-{
-    int acopy = a, j, r;
-    // init array a
-    for (int i = 0; acopy != 0; i++)
-    {
-        p[i] = acopy%10;
-        acopy /= 10;
-    }
+    int n;
+    float y = 0.0, s;
     
-    
-    // multiply array by a b times
-    for (int i = 2; i <= b; i++)
+    for (n = 0; n<=30;n++)
     {
-        j = 0;
-        r = 0;
-        while(p[j]!=-1)
-        {
-            p[j] = (p[j]*a)+r;
-            r = p[j]/10;
-            p[j] %= 10;
-
-            j++;
-        }
-        while (r!=0)
-        {
-            p[j] = r%10;
-            r/=10;
-            j++; 
-        }   
+        s = fabs(fmod(power(2,n)*x, 1.0) - 0.5);
+        y += s/power(2,n);
     }
+    return y;
 }
 
-int sum_digits(int *p, int size)
+int longueur(int valeur)
 {
-    int sum = 0, i = 0;
-    while(p[i] != -1)
-    {
-        sum += p[i];
-        i++;
-    }
-    return sum;
+	int retour = 0;
+	if(valeur < 0)
+	{
+		retour++;
+		valeur = -1 * valeur;
+	}
+	while(valeur !=0)
+	{
+		retour++;
+		valeur = valeur / 10;
+	}
+	return retour;
 }
 
-void euler56()
-{
-    int a, b, sum = 0, size = 300, sum_d;
-    int *num;
-
-    for (a = 1 ; a < 100 ; a++)
-    {
-        
-        for (b = 1 ; b < 100 ; b++)
-        {
-
-            num = init_array_p(num, size);
-            power_array(num, size, a, b);
-
-            sum_d = sum_digits(num, size);
-
-            sum = max(sum, sum_d);
-        }
+float monte_carlo (float (*f)(float), float nb_coups, float debut, float fin, float maximum){
+    srand(time(NULL)); 
+    int nb_succes = 0, x_int, y_int;
+    float x, y;
+    for (int i = 0; i < nb_coups; i++){
+        x_int = rand(); // entier entre 0 et RAND_MAX
+        x = fabs(x_int*power_f(10, -1*longueur(x_int)))/0.5;
+        y_int = rand();
+        y = fabs(y_int*power_f(10, -1*longueur(y_int)));
+        if ((f(x)>y)&&((x - 0.25)*(x - 0.25) + (y - 0.5)*(y - 0.5) < 0.0625)) nb_succes ++;
     }
-    printf("answer %d\n", sum);
-    free(num);
+    float prob = nb_succes/nb_coups; 
+    float integrale = prob*(fin-debut)*maximum;
+    printf("prob :%f\n", prob); 
+    printf("fin - debut %f\n", fin-debut);
+    printf("integrale %f\n", integrale);
+    return integrale*10; 
 }
-
 
 int main()
 {
     clock_t start, end;
     start = clock();
+    printf("%.8f\n", pouding(0.1358));
 
-    euler56();
+    printf("%.8f\n", monte_carlo(pouding, 1000000, 0, 0.5, 0.67));
+    //euler226();
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
     printf("\nTime taken to execute in seconds : %f\n", duration);
     return EXIT_SUCCESS;
 }
-
-
