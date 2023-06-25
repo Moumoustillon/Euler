@@ -9,6 +9,8 @@ int count_digits(int n);
 void display_array(int array[], int size);
 void display_array_as_number(int array[], int size);
 
+int dichotomy(int array[], int a, int b, int target);
+
 int is_a_permutation_of_b(int a, int b); // 1 if a and b are permutations of each other
 int factorial(int n);
 

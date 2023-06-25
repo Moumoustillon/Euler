@@ -4,6 +4,16 @@
 #include<math.h>
 #include"toolbox.h"
 
+
+int dichotomy(int array[], int a, int b, int target)
+{
+    int m = (a+b)/2;
+    if (a>b) return -1;
+    if (array[m]>target) return dichotomy(array, a, m-1, target);
+    if (array[m]<target) return dichotomy(array, m+1, b, target);
+    return m;
+}
+
 int max(int a, int b)
 {
     if (a>b) return a;

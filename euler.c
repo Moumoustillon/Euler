@@ -4,62 +4,37 @@
 #include<time.h>
 #include"toolbox.h"
 
-float pouding(float x) 
+void prime_array(int *array, int size)
 {
-    int n;
-    float y = 0.0, s;
-    
-    for (n = 0; n<=30;n++)
+    int i, count = 0;
+    for(i=0;count<size; i++)
     {
-        s = fabs(fmod(power(2,n)*x, 1.0) - 0.5);
-        y += s/power(2,n);
+        if(prime(i) == 1)
+        {
+            array[i] = i;
+        }
     }
-    return y;
 }
 
-int longueur(int valeur)
+
+void euler51()
 {
-	int retour = 0;
-	if(valeur < 0)
-	{
-		retour++;
-		valeur = -1 * valeur;
-	}
-	while(valeur !=0)
-	{
-		retour++;
-		valeur = valeur / 10;
-	}
-	return retour;
-}
+    int i_candidates = 0 ;
+    int *primes;
+    int size = 1000000;
+    primes = (int*)malloc(size*sizeof(int));
 
-float monte_carlo (float (*f)(float), float nb_coups, float debut, float fin, float maximum){
-    srand(time(NULL)); 
-    int nb_succes = 0, x_int, y_int;
-    float x, y;
-    for (int i = 0; i < nb_coups; i++){
-        x_int = rand(); // entier entre 0 et RAND_MAX
-        x = fabs(x_int*power_f(10, -1*longueur(x_int)))/0.5;
-        y_int = rand();
-        y = fabs(y_int*power_f(10, -1*longueur(y_int)));
-        if ((f(x)>y)&&((x - 0.25)*(x - 0.25) + (y - 0.5)*(y - 0.5) < 0.0625)) nb_succes ++;
-    }
-    float prob = nb_succes/nb_coups; 
-    float integrale = prob*(fin-debut)*maximum;
-    printf("prob :%f\n", prob); 
-    printf("fin - debut %f\n", fin-debut);
-    printf("integrale %f\n", integrale);
-    return integrale*10; 
+
+
+    free(primes);
 }
 
 int main()
 {
     clock_t start, end;
     start = clock();
-    printf("%.8f\n", pouding(0.1358));
 
-    printf("%.8f\n", monte_carlo(pouding, 1000000, 0, 0.5, 0.67));
-    //euler226();
+    euler();
 
     end = clock();
     double duration = ((double)end - start)/CLOCKS_PER_SEC;
