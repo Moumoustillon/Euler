@@ -2,7 +2,10 @@
     #define TOOLBOX_H
 
 int max(int a, int b);
+unsigned long long max_llu(unsigned long long a, unsigned long long b);
+
 int min(int a, int b);
+unsigned long long min_llu(unsigned long long a, unsigned long long b);
 
 int count_digits(int n);
 

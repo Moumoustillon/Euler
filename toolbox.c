@@ -19,8 +19,18 @@ int max(int a, int b)
     if (a>b) return a;
     return b;
 }
+unsigned long long max_llu(unsigned long long a, unsigned long long b)
+{
+    if (a>b) return a;
+    return b;
+}
 
 int min(int a, int b)
+{
+    if (a<b) return a;
+    return b;
+}
+unsigned long long min_llu(unsigned long long a, unsigned long long b)
 {
     if (a<b) return a;
     return b;
