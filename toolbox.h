@@ -1,17 +1,25 @@
 #ifndef TOOLBOX_H
     #define TOOLBOX_H
 
+// data structures ...
+
+typedef struct vector vector;
+void display_vector(vector *t);
+vector *create_vector(int taille);
+void init_vector(vector *t);
+int read_vector(vector *t,int indice);
+int write_vector(vector *t,int indice, int valeur);
+
+
+
 // int, numbers and calculations ...
 
 int max(int a, int b);
 unsigned long long max_llu(unsigned long long a, unsigned long long b);
 
 int min(int a, int b);
-<<<<<<< Updated upstream
 unsigned long long min_llu(unsigned long long a, unsigned long long b);
 
-=======
->>>>>>> Stashed changes
 int count_digits(int n);
 int factorial(int n);
 int power(int x, int n); // returns x^n
@@ -20,7 +28,7 @@ int power(int x, int n); // returns x^n
 
 float power_f(float x, int n);
 
-// analysis of numbers
+// number analysis functions ...
 
 int is_n_palindromic(int n); // 1 if n is palindromic, 0 otherwise
 int is_a_permutation_of_b(int a, int b); // 1 if a and b are permutations of each other

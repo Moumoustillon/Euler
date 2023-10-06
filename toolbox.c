@@ -3,6 +3,50 @@
 #include<math.h>
 #include"toolbox.h"
 
+// data structures ...
+struct vector{
+    int *tab;
+    int size;
+}
+void display_vector(vector *t)
+{
+    int i;
+    for(i=0;i<t->size-1;i++)
+    {
+        printf("%d|",lecture_vector(t,i));
+    }
+    printf("%d",lecture_vector(t,t->size -1));
+}
+vector *create_vector(int size)
+{
+    vector *tmp;
+    tmp=(vector*)malloc(sizeof(vector));
+    tmp->tab=(int*)malloc(sizeof(int)*size);
+    tmp->size = size;
+    return tmp;
+}
+void init_vector(vector *t)
+{
+    int i;
+    for(i=0;i<t->size;i++)
+    {
+        ecriture_vector(t,i,i);
+    }
+}
+int read_vector(vector *t,int indice)
+{
+    if(indice>=t->size||indice<0) return -1;
+    return t->tab[indice];
+}
+int write_vector(vector *t,int indice, int valeur)
+{
+
+    if(indice>=t->size||indice<0) return 0;
+    t->tab[indice] =valeur;
+    return 1;
+    
+}
+
 // int, numbers and calculations ...
 
 int max(int a, int b)
@@ -149,7 +193,7 @@ int prime(int n)
     return 1;
 }
 
-// arrays, analysis, sorting ...
+// arrays, analysis, sort ...
 
 void display_array(int array[], int size)
 {
@@ -226,4 +270,3 @@ int is_hexagonal(int num)
     if (((int)root == root) && ((int)root % 4 == 3)) return 1;
     return 0;
 }
-
