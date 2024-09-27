@@ -4,10 +4,11 @@
 #include"toolbox.h"
 
 // data structures ...
+/*
 struct vector{
     int *tab;
     int size;
-}
+};
 void display_vector(vector *t)
 {
     int i;
@@ -45,7 +46,7 @@ int write_vector(vector *t,int indice, int valeur)
     t->tab[indice] =valeur;
     return 1;
     
-}
+} */
 
 // int, numbers and calculations ...
 
@@ -115,6 +116,20 @@ float power_f(float x, int n)
     return x*power_f(x*x,(n-1)/2);
 }
 
+int inverse(int n)
+{
+    int i, r = 0, copy;
+    copy = n;
+
+    while(copy!=0)
+    {
+        r = r*10;
+        r = r+(copy%10);
+        copy = copy/10;
+    }
+    return r;
+}
+
 // number analysis functions
 
 int is_n_palindromic(int n)
@@ -130,7 +145,7 @@ int is_n_palindromic(int n)
     }
     if(r == n) 
     {
-        printf("pal %d\n", n);
+
         return 1;
     }
     return 0;

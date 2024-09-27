@@ -2,14 +2,14 @@
     #define TOOLBOX_H
 
 // data structures ...
-
+/*
 typedef struct vector vector;
 void display_vector(vector *t);
 vector *create_vector(int taille);
 void init_vector(vector *t);
 int read_vector(vector *t,int indice);
 int write_vector(vector *t,int indice, int valeur);
-
+*/
 
 
 // int, numbers and calculations ...
@@ -27,6 +27,8 @@ int power(int x, int n); // returns x^n
 // float
 
 float power_f(float x, int n);
+
+int inverse(int n);
 
 // number analysis functions ...
 
